@@ -4,13 +4,14 @@
 I built an intentionally exposed honeypot in Azure to see how the public internet actually probes a host in real time. The purpose was to practice cloud deployment and end-to-end telemetry: stand up a VM, wire logs into a SIEM (Log Analytics + Microsoft Sentinel), and capture clean endpoint data with Sysmon. The goal was to turn unsolicited scans/brute-force traffic into actionable detections and investigations—write KQL/SIEM rules, triage incidents, pivot across entities (IP, account, process), and document guardrails (NSGs, budgets, auto-shutdown) so the lab stays safe and affordable. In short: deploy a realistic target, observe real attacks, and build the detection/response  a SOC analyst needs.
 
 ### Skills Learned
-- Built a minimal Azure environment from scratch (subscription hygiene, resource groups, networking, and basic cost control).
-- Deployed and hardened a public VM while intentionally exposing select ports to attract scans and brute-force attempts.
-- Connected endpoint + platform logs to a Log Analytics Workspace and Microsoft Sentinel for SIEM analysis.
-- Instrumented Windows with Sysmon and the Azure Monitor Agent; validated data quality (fields, timestamps, host mapping).
-- Authored and tuned detections for common internet noise (RDP/SSH brute force, port scans) to reduce false positives.
-- Investigated incidents end-to-end: alert triage → log pivots (IP, account, process tree) → findings → lessons learned.
-- Documented guardrails for safe honeypot ops: budgets, NSG rules, least exposure, and automated teardown.
+- Practical understanding of cloud-based SIEM operations using Log Analytics and Microsoft Sentinel (data connectors, tables, incidents).
+- Proficiency writing and tuning KQL to investigate authentication failures, brute-force patterns, and process activity at scale.
+- Ability to interpret unsolicited internet telemetry (scans, RDP/SSH brute force) and separate noise from actionable signals.
+- Experience building detections and visualizations (analytics rules, workbooks, geo-mapping via watchlists) to surface attacker trends.
+- Stronger grasp of Azure networking and security controls (NSGs, public IP exposure, VM/agent health) and their effect on telemetry.
+- Endpoint instrumentation skills with Sysmon and Azure Monitor Agent, validating field quality, timestamps, and host identity.
+- Improved incident triage, enrichment, and tuning discipline—reducing false positives while keeping high-fidelity alerts.
+
 
 ### Tools Used
 - **Azure**: Resource Groups, Virtual Network/Subnet, **Network Security Groups (NSG)**, Public IPs, **Log Analytics Workspace**, **Microsoft Sentinel**, Defender for Cloud.
