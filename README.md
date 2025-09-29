@@ -21,11 +21,11 @@ I built an intentionally exposed honeypot in Azure to see how the public interne
 -  **nmap** for external reachability tests.
 
 ## Video Walkthrough
-  **Full end-to-end video walkthrough: `[Add Video Link Here]`.**
+  **Full end-to-end video walkthrough: `[Video Link Here soon]`.**
 
 
 ## Steps
-
+`[Images need to be uploaded]`
 1) **Create Resource Group, Virtual Network, and Subnet**  
 ![Ref 1 – RG + VNet + Subnet](LINK_TO_IMAGE_1)  
 *Ref 1:* Create a dedicated Resource Group and a Virtual Network with a lab Subnet to keep everything organized and isolated.
