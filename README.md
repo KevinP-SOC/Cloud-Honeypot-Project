@@ -24,7 +24,8 @@ I built an intentionally exposed honeypot in Azure to see how the public interne
 ## Video Walkthrough
   **Full end-to-end video walkthrough: `[Video Link Here soon]`.**
 
-
+## Additional Needed Files
+   `[Need to upload the spreadsheet for IP addresses]`.
 ## Steps
 `[Images need to be uploaded]`
 1) **Create Resource Group, Virtual Network, and Subnet**  
