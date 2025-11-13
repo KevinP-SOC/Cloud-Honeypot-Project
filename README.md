@@ -22,113 +22,123 @@ I built an intentionally exposed honeypot in Azure to see how the public interne
 -  **nmap** for external reachability tests.
 
 ## Video Walkthrough
-  **Full end-to-end video walkthrough: `[Video Link Here soon]`.**
+  **Full end-to-end video walkthrough: https://youtu.be/sPw7q_KpGQw.**
 
 ## Additional Needed Files
-   `[Need to upload the spreadsheet for IP addresses]`.
+   https://drive.google.com/file/d/13EfjM_4BohrmaxqXZLB5VUBIz2sv9Siz/view.
+   https://drive.google.com/file/d/1ErlVEK5cQjpGyOcu4T02xYy7F31dWuir/view
 ## Steps
-`[Images need to be uploaded]`
+
 1) **Create Resource Group, Virtual Network, and Subnet**  
-![Ref 1 – RG + VNet + Subnet](LINK_TO_IMAGE_1)  
+![Ref 1 – RG + VNet + Subnet](LINK_TO_IMAGE_1)
+<img width="1873" height="1094" alt="image" src="https://github.com/user-attachments/assets/ef9bbc79-e114-4751-9a24-4648d895743f" />
+<img width="1873" height="1066" alt="image" src="https://github.com/user-attachments/assets/91336101-928d-4caa-855d-b509a77f9044" />
+
 *Ref 1:* Create a dedicated Resource Group and a Virtual Network with a lab Subnet to keep everything organized and isolated.
 
 2) **Begin VM Creation (Basics Tab)**  
-![Ref 2 – VM Basics](LINK_TO_IMAGE_2)  
+<img width="1873" height="1904" alt="image" src="https://github.com/user-attachments/assets/fdc432eb-f7dd-4547-90cd-e61b6cec4a7f" />
+  
 *Ref 2:* Select the image (Windows/Ubuntu), size, admin username/password (or SSH key), and accept licensing. Use a small SKU to control costs.
-
-3) **Networking: Attach the VM to Your Lab VNet**  
-![Ref 3 – VM Networking](LINK_TO_IMAGE_3)  
 *Ref 3:* Ensure the the VM is placed on the previously created VNet/Subnet. Leave defaults unless you need a specific NIC name or public IP.
 
-4) **Advanced/Management Tabs (Leave Defaults)**  
-![Ref 4 – Defaults Acknowledged](LINK_TO_IMAGE_4)  
+3) **Advanced/Management Tabs (Leave Defaults)**  
+<img width="1830" height="1645" alt="image" src="https://github.com/user-attachments/assets/f324bd64-bdda-43c0-ba66-5ce25bf4071c" />
+ 
 *Ref 4:* For this lab, leave most options as-is. You can revisit boot diagnostics, identities, and extensions later if needed.
 
-5) **Disable Boot Diagnostics (Lab Setting)**  
-![Ref 5 – Boot Diagnostics Off](LINK_TO_IMAGE_5)  
+4) **Disable Boot Diagnostics (Lab Setting)**  
+<img width="1800" height="1010" alt="image" src="https://github.com/user-attachments/assets/b8aeaf3c-3643-4943-828a-969cf996f485" />
+
 *Ref 5:* Turn off boot diagnostics for simplicity/cost in this lab. (Optional; keep enabled if you want serial console logs.)
 
-6) **Review + Create → Deploy VM**  
-![Ref 6 – Review + Create](LINK_TO_IMAGE_6)  
+5) **Review + Create → Deploy VM**  
 *Ref 6:* Validate settings, click **Create**, and wait for deployment to finish. Then navigate to the new Resource Group.
 
-7) **Open the VM’s NSG**  
-![Ref 7 – NSG in Resource Group](LINK_TO_IMAGE_7)  
+6) **Open the VM’s NSG**  
+<img width="3813" height="1149" alt="image" src="https://github.com/user-attachments/assets/28de399f-fda5-4281-b0a3-fd011ef9f22c" />
 *Ref 7:* In the Resource Group, open the Network Security Group (NSG) tied to the VM NIC or subnet to manage inbound/outbound rules.
 
-8) **Remove Default RDP Rule (Cleanup)**  
-![Ref 8 – Remove RDP Rule](LINK_TO_IMAGE_8)  
+7) **Remove Default RDP Rule (Cleanup)**  
+<img width="3812" height="1096" alt="image" src="https://github.com/user-attachments/assets/8a030840-6292-4977-b2e7-2a1d9ba85bf0" />
 *Ref 8:* Delete the default RDP inbound rule to avoid confusion before adding your lab’s intentional exposure rule.
 
-9) **Add an “Allow All Ports” Inbound Rule (Honeypot Only)**  
-![Ref 9 – Allow * Ports](LINK_TO_IMAGE_9)  
+8) **Add an “Allow All Ports” Inbound Rule (Honeypot Only)**  
+<img width="880" height="1919" alt="image" src="https://github.com/user-attachments/assets/d1863aa5-47f8-4f4c-be69-9022a851dd1f" />
 *Ref 9:* Add a new inbound rule: Source = Any, Destination = Any, **Port ranges = “*”**, Protocol = Any, Action = Allow.  
 ⚠️ **Warning:** This is intentionally insecure for honeypot telemetry. Never use in production.
 
-10) **Confirm NSG Rule Order and Effect**  
-![Ref 10 – NSG Updated List](LINK_TO_IMAGE_10)  
+9) **Confirm NSG Rule Order and Effect**  
+<img width="3830" height="802" alt="image" src="https://github.com/user-attachments/assets/44cc1e88-8dc8-45b3-8206-6feccc88566a" />
 *Ref 10:* Verify the new rule sits above any deny rules so it actually takes effect.
 
-11) **Copy the VM’s Public IP**  
-![Ref 11 – Public IP](LINK_TO_IMAGE_11)  
+10) **Copy the VM’s Public IP**  
+<img width="2967" height="1915" alt="image" src="https://github.com/user-attachments/assets/de9d5f59-c7df-4cc2-b034-ba215ba43a58" />
 *Ref 11:* Grab the public IP for RDP/SSH testing and later external scans.
 
-12) **Remote Desktop / SSH to the VM**  
-![Ref 12 – RDP Client](LINK_TO_IMAGE_12)  
+11) **Remote Desktop / SSH to the VM**  
+<img width="640" height="395" alt="image" src="https://github.com/user-attachments/assets/2026870c-1aee-4405-985d-ceb8758b08bb" />
 *Ref 12:* Open **Remote Desktop Connection** (Windows) or SSH (Linux/macOS). Enter the public IP and authenticate with the admin credentials you set.
 
-13) **Initial OS Setup**  
-![Ref 13 – First Login](LINK_TO_IMAGE_13)  
+12) **Initial OS Setup**  
+<img width="2241" height="1561" alt="image" src="https://github.com/user-attachments/assets/31d78797-aea7-48de-8793-c40bc97ff108" />
 *Ref 13:* Complete the initial Windows setup (privacy, updates). For honeypot purposes, keep things simple.
 
-14) **Disable Windows Defender & Firewall (Lab Only)**  
-![Ref 14 – Disable Defender/Firewall](LINK_TO_IMAGE_14)  
+13) **Disable Windows Defender & Firewall (Lab Only)**  
+<img width="650" height="713" alt="image" src="https://github.com/user-attachments/assets/efdfff6c-7ece-47e6-8d99-c0d393f407c8" />
 *Ref 14:* Open **Windows Defender Firewall with Advanced Security** → **Windows Defender Firewall Properties** → Turn off Domain/Private/Public profiles.  
 ⚠️ **Lab Only:** This is to maximize observable telemetry. Re-enable for any environment you care about.
 
-15) **Verify External Reachability from Host**  
-![Ref 15 – Ping/Reachability](LINK_TO_IMAGE_15)  
+14) **Verify External Reachability from Host**  
+<img width="3835" height="2106" alt="image" src="https://github.com/user-attachments/assets/44110369-4e3f-4166-961b-758f6d482b09" />
 *Ref 15:* From your host, test reachability (ping if allowed, or `nmap -Pn -p <port> <public-ip>`). You should see the VM responding.
 
-16) **Generate Failed Logons for Telemetry**  
-![Ref 16 – Purposely Fail Logon](LINK_TO_IMAGE_16)  
+15) **Generate Failed Logons for Telemetry**  
+<img width="716" height="590" alt="image" src="https://github.com/user-attachments/assets/b4b06ea7-2ff4-4bca-8f96-70326f7151ec" />
 *Ref 16:* Log off and intentionally enter wrong credentials several times to create **4625** failed logon events.
 
-17) **Check Event Viewer for 4625**  
-![Ref 17 – Event Viewer 4625](LINK_TO_IMAGE_17)  
+16) **Check Event Viewer for 4625**  
+<img width="2214" height="1387" alt="image" src="https://github.com/user-attachments/assets/ac1d8ddb-7c8b-4aaf-afc3-96dd777037fa" />
 *Ref 17:* On the VM: open **Event Viewer → Windows Logs → Security**. Use **Ctrl+F** to find **Event ID 4625** (failed logon). Confirm details match your attempts.
 
-18) **Create Log Analytics Workspace**  
-![Ref 18 – Create LAW](LINK_TO_IMAGE_18)  
+17) **Create Log Analytics Workspace**  
+<img width="1363" height="1969" alt="image" src="https://github.com/user-attachments/assets/bc20d038-c4e4-45f7-8a04-cdc68f6350a0" />
 *Ref 18:* In Azure, create a **Log Analytics Workspace** in the same Resource Group/region. Click **Review + Create** → **Create**.
 
-19) **Enable Microsoft Sentinel on the Workspace**  
-![Ref 19 – Enable Sentinel](LINK_TO_IMAGE_19)  
+18) **Enable Microsoft Sentinel on the Workspace**  
+<img width="2543" height="1950" alt="image" src="https://github.com/user-attachments/assets/f6db144c-fb66-47a1-96a0-27a042d5c899" />
 *Ref 19:* Open **Microsoft Sentinel**, select your workspace, and click **Enable** to mount SIEM capabilities.
 
-20) **Install “Windows Security Events” via Content Hub**  
-![Ref 20 – Content Hub Install](LINK_TO_IMAGE_20)  
+19) **Install “Windows Security Events” via Content Hub**  
+<img width="3177" height="1952" alt="image" src="https://github.com/user-attachments/assets/f34c7574-4c12-4989-b05b-cbec905ee2a6" /> 
 *Ref 20:* In Sentinel → **Content hub**, search **Windows Security Events** and install the solution.
 
-21) **Open Connector and Create Data Collection Rule (AMA)**  
-![Ref 21 – AMA Connector](LINK_TO_IMAGE_21)  
+20) **Open Connector and Create Data Collection Rule (AMA)**  
+<img width="3817" height="1900" alt="image" src="https://github.com/user-attachments/assets/5e19d2dc-8bce-40cb-b09a-ee6c10d1f5a9" />
+<img width="1796" height="1414" alt="image" src="https://github.com/user-attachments/assets/e4d78ee5-ea25-46c1-86f0-cb57d5350dc9" />
+
 *Ref 21:* In **Data connectors**, open **Windows Security Events via AMA**, click **Open connector page**, then **Create data collection rule (DCR)** to onboard the VM.
 
-22) **Target the VM in the DCR**  
-![Ref 22 – DCR Targeting VM](LINK_TO_IMAGE_22)  
+21) **Target the VM in the DCR**  
+<img width="1274" height="1927" alt="image" src="https://github.com/user-attachments/assets/871ddc4d-3db6-4329-86e0-702511ec3fdd" />
+ <img width="1277" height="1911" alt="image" src="https://github.com/user-attachments/assets/dcc6e27f-5f17-44c3-85bd-101de6fb90e6" />
+
 *Ref 22:* In the DCR wizard, select your VM under resources, validate, and create. This attaches the AMA pipeline to your workspace.
 
-23) **Confirm Extension/DCR on the VM**  
-![Ref 23 – VM Extensions](LINK_TO_IMAGE_23)  
+22) **Confirm Extension/DCR on the VM**  
+<img width="3822" height="1916" alt="image" src="https://github.com/user-attachments/assets/2205c0e8-d69f-46dc-8e31-cc9133f98301" />
+ 
 *Ref 23:* On the VM resource blade → **Extensions**, verify the AMA/DCR shows as **Provisioning succeeded** before proceeding.
 
-24) **Verify Logs in the Workspace**  
-![Ref 24 – LAW Logs Query](LINK_TO_IMAGE_24)  
+23) **Verify Logs in the Workspace**  
+<img width="3843" height="1918" alt="image" src="https://github.com/user-attachments/assets/ce74d659-1d20-4bb0-b38c-21b7b45c0791" />
+ 
 *Ref 24:* Open the **Log Analytics Workspace → Logs** and run quick KQL checks:  
 `SecurityEvent | take 5` and `Heartbeat | take 5`. Confirm the VM is sending data.
 
-25) **Query Failed Logons with KQL**  
-![Ref 25 – KQL 4625 Query](LINK_TO_IMAGE_25)  
+24) **Query Failed Logons with KQL**  
+<img width="3828" height="965" alt="image" src="https://github.com/user-attachments/assets/d6453ff3-d92a-461b-9bb2-f6fd28b308e2" />
+ 
 *Ref 25:* Example:  
 kql
 SecurityEvent
@@ -136,23 +146,27 @@ SecurityEvent
 | summarize count() by Account, IPAddress=coalesce(IpAddress, SourceNetworkAddress), bin(TimeGenerated, 1h)
 | order by TimeGenerated desc
 
-26) **Create a GeoIP Watchlist**  
-![Ref 26 – New Watchlist](LINK_TO_IMAGE_26)  
+25) **Create a GeoIP Watchlist**  
+<img width="2021" height="2105" alt="image" src="https://github.com/user-attachments/assets/a897bb1a-42bb-468d-a48c-c1020366fc15" />
+<img width="2400" height="1629" alt="image" src="https://github.com/user-attachments/assets/468c06da-b358-4c3b-b279-513f48332fcf" />
+<img width="3831" height="1147" alt="image" src="https://github.com/user-attachments/assets/b768245b-38e5-4d13-a7ea-59f0836ad5ea" />
 *Ref 26:* In Sentinel → **Watchlists**, click **New**. Name it (e.g., `GeoIP`), set a **SearchKey** column (e.g., `network` or `ip`), and upload your GeoIP CSV.
 
-27) **Confirm Watchlist Upload**  
-![Ref 27 – Watchlist Uploaded](LINK_TO_IMAGE_27)  
+26) **Confirm Watchlist Upload**  
+<img width="1030" height="655" alt="image" src="https://github.com/user-attachments/assets/cdbb99cf-ee4d-44b3-88a8-07642c2c97e4" />
 *Ref 27:* Refresh the watchlist blade and open `GeoIP`. It may take a moment to process large CSVs.
 
-28) **Query the Watchlist in KQL**  
-![Ref 28 – Watchlist KQL](LINK_TO_IMAGE_28)  
+27) **Query the Watchlist in KQL**  
+<img width="3842" height="1969" alt="image" src="https://github.com/user-attachments/assets/51df0382-2627-446e-9097-c4341f109da9" />
+
 *Ref 28:* Example:  
 kql
 _GetWatchlist('GeoIP')
 | take 10
 
-29) **Join Failed Logons with GeoIP for Mapping**  
-![Ref 29 – KQL Join for Geo](LINK_TO_IMAGE_29)  
+28) **Join Failed Logons with GeoIP for Mapping**  
+<img width="3368" height="1901" alt="image" src="https://github.com/user-attachments/assets/34f84497-a303-4392-9a1a-d867eb90dded" />
+ 
 *Ref 29:* Example:
     let attackers =
         SecurityEvent
@@ -165,21 +179,23 @@ _GetWatchlist('GeoIP')
     | join kind=leftouter geo on $left.IpAddress == $right.network
     | summarize attempts = count() by country, city, latitude, longitude
 
-30) **Create a Workbook for the Map**  
-![Ref 30 – New Workbook](LINK_TO_IMAGE_30)  
+29) **Create a Workbook for the Map**  
+<img width="3839" height="1975" alt="image" src="https://github.com/user-attachments/assets/7cfefdac-6d07-4dc7-8cab-4cd03fa1ade2" />
+  
 *Ref 30:* In Sentinel → **Workbooks**, click **Add workbook** → **Edit** → remove defaults → **Add query**.
 
-31) **Paste JSON/Advanced Editor for Map Visualization**  
-![Ref 31 – Advanced Editor JSON](LINK_TO_IMAGE_31)  
+30) **Paste JSON/Advanced Editor for Map Visualization**  
+<img width="1205" height="1279" alt="image" src="https://github.com/user-attachments/assets/32a360db-308d-40f5-a921-c5c0884b49d6" />
+ 
 *Ref 31:* Open **Advanced editor** and paste your JSON for the map visualization (or configure the query + map view manually).
 
-32) **Finish and Interpret the Map**  
-![Ref 32 – Map of Attackers](LINK_TO_IMAGE_32)  
+31) **Finish and Interpret the Map**  
+<img width="1896" height="1247" alt="image" src="https://github.com/user-attachments/assets/ff72ff2e-43af-4117-9b58-414a8cdc8139" />
+<img width="3833" height="1971" alt="image" src="https://github.com/user-attachments/assets/a2163b24-b2f4-463a-882e-5eaa5ebd6de2" />
+
 *Ref 32:* Click **Done editing** to render the map. Explain color/size encodings (e.g., bubble size = attempts). More runtime = richer data.
 
-33) **(Optional) External Scan Confirmation**  
-![Ref 33 – External nmap](LINK_TO_IMAGE_33)  
-*Ref 33:* From an external host or Cloud Shell, run: `nmap -Pn -p- <public-ip>` to confirm exposure and observe internet scan/brute-force activity.
+
 
 ---
 
@@ -187,11 +203,4 @@ _GetWatchlist('GeoIP')
 - **Honeypot Warning:** Steps 9 and 14 intentionally reduce security to attract activity. Keep this VM isolated and never reuse credentials.  
 - **Costs:** Use small SKUs, budgets, and auto-shutdown to control spend.  
 - **Cleanup:** Tear down the Resource Group when finished or keep it only with strict cost guardrails.  
-- **Video:** Add your end-to-end walkthrough link here → `[Add Video Link Here]`.
 
----
-
-### Notes
-- This honeypot is **deliberately exposed**—keep it isolated from anything you care about.
-- Use strong creds/keys and never reuse passwords.
-- Tear down the environment when you’re done, or keep budgets/auto-shutdown enabled.
