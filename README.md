@@ -27,10 +27,14 @@ I built an intentionally exposed honeypot in Azure to see how the public interne
 ## Additional Needed Files
    https://drive.google.com/file/d/13EfjM_4BohrmaxqXZLB5VUBIz2sv9Siz/view.
    https://drive.google.com/file/d/1ErlVEK5cQjpGyOcu4T02xYy7F31dWuir/view
+
+## Attack map after 72 hours
+<img width="1045" height="683" alt="Attack map 72 hours" src="https://github.com/user-attachments/assets/5ec64623-4de5-40ca-99d8-99c1b940bf9a" />
+
 ## Steps
 
 1) **Create Resource Group, Virtual Network, and Subnet**  
-![Ref 1 – RG + VNet + Subnet](LINK_TO_IMAGE_1)
+
 <img width="1873" height="1094" alt="image" src="https://github.com/user-attachments/assets/ef9bbc79-e114-4751-9a24-4648d895743f" />
 <img width="1873" height="1066" alt="image" src="https://github.com/user-attachments/assets/91336101-928d-4caa-855d-b509a77f9044" />
 
